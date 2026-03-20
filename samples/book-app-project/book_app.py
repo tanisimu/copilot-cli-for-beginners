@@ -58,6 +58,14 @@ def handle_find():
 
     show_books(books)
 
+def handle_search():
+    print("\nSearch Books (title or author)\n")
+
+    query = input("Search query: ").strip()
+    books = collection.search(query)
+
+    show_books(books)
+
 
 def show_help():
     print("""
@@ -68,6 +76,7 @@ Commands:
   add      - Add a new book
   remove   - Remove a book by title
   find     - Find books by author
+  search   - Search books by title or author
   help     - Show this help message
 """)
 
@@ -87,6 +96,8 @@ def main():
         handle_remove()
     elif command == "find":
         handle_find()
+    elif command == "search":
+        handle_search()
     elif command == "help":
         show_help()
     else:

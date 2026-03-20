@@ -51,3 +51,22 @@ def test_remove_book_invalid():
     collection = BookCollection()
     result = collection.remove_book("Nonexistent Book")
     assert result is False
+
+
+def test_search_partial_match():
+    collection = BookCollection()
+    collection.add_book("The Great Gatsby", "F. Scott Fitzgerald", 1925)
+    collection.add_book("Great Expectations", "Charles Dickens", 1861)
+    results = collection.search("great")
+    titles = {b.title for b in results}
+    assert "The Great Gatsby" in titles
+    assert "Great Expectations" in titles
+
+
+def test_search_case_insensitive():
+    collection = BookCollection()
+    collection.add_book("To Kill a Mockingbird", "Harper Lee", 1960)
+    results = collection.search("harper")
+    assert any(b.author == "Harper Lee" for b in results)
+    results2 = collection.search("TO KILL")
+    assert any("To Kill a Mockingbird" == b.title for b in results2)
