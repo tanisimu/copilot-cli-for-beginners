@@ -1,0 +1,21 @@
+name: Skill CI - book-markdown-summary
+on:
+  push:
+    paths:
+      - 'samples/skills/book-markdown-summary/**'
+  pull_request:
+    paths:
+      - 'samples/skills/book-markdown-summary/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Run skill test
+        run: |
+          chmod +x samples/skills/book-markdown-summary/test/run.sh
+          ./samples/skills/book-markdown-summary/test/run.sh
